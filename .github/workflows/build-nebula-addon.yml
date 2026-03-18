@@ -39,5 +39,5 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            YOUR_DH_USER/nebula-hassio-addon-amd64:latest
-            YOUR_DH_USER/nebula-hassio-addon-amd64:${{ steps.version.outputs.version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/nebula-hassio-addon-amd64:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/nebula-hassio-addon-amd64:${{ steps.version.outputs.version }}
