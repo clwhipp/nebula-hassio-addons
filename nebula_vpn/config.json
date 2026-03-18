@@ -22,5 +22,5 @@
   ],
   "devices": ["/dev/net/tun"],
   "map": ["config:rw"],
-  "image": "YOUR_DH_USER/nebula-hassio-addon-amd64"
+  "image": "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64"
 }
