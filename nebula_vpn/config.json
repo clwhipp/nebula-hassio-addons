@@ -7,7 +7,7 @@
   "startup": "services",
   "boot": "auto",
   "init": false,
-  "homeassistant": "2023.1.0",
+  "homeassistant": "2026.3.1",
   "options": {
     "nebula_config_path": "/config/nebula/config.yml",
     "debug": false
