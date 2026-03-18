@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:3.22
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:7e21ccc@sha256:d4fd7098f16532db2594337d849080ee735fbe8098e03544fb848df92c196aa9
 FROM ${BUILD_FROM}
 
 LABEL \
