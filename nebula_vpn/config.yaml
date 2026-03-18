@@ -1,0 +1,33 @@
+---
+name: Nebula VPN
+version: 1.10.3
+slug: nebula_vpn
+description: Highly secure overlay VPN for Home Assistant OS (x86_64 only)
+url: https://github.com/clwhipp/nebula-hassio-addons/nebula_vpn
+ingress: true
+ingress_port: 0
+ingress_stream: true
+startup: services
+panel_icon: mdi:vpn
+arch:
+  - amd64
+init: false
+hassio_api: true
+host_network: true
+host_dbus: true
+privileged:
+  - NET_ADMIN
+  - NET_RAW
+  - SYS_ADMIN
+devices:
+  - /dev/net/tun
+map:
+  - type: addons
+    read_only: false
+  - type: all_addon_configs
+    read_only: false
+  - type: homeassistant_config
+    read_only: false
+    path: /config
+ports:
+  4242/udp: null

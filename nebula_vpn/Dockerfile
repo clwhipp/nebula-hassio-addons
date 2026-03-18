@@ -1,10 +1,12 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:7e21ccc@sha256:d4fd7098f16532db2594337d849080ee735fbe8098e03544fb848df92c196aa9
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:20.0.1
 FROM ${BUILD_FROM}
 
 LABEL \
   io.hass.name="Nebula VPN" \
   io.hass.description="Nebula mesh VPN client for Home Assistant OS (x86_64)" \
-  io.hass.type="addon"
+  io.hass.arch="amd64" \
+  io.hass.type="addon" \
+  io.hass.version="1.10.3"
 
 # Dependencies
 RUN apk add --no-cache curl ca-certificates
