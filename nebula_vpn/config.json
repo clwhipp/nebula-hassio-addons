@@ -1,6 +1,6 @@
 {
   "name": "Nebula VPN",
-  "version": "0.1.0",
+  "version": "1.10.3",
   "slug": "nebula_vpn",
   "description": "Nebula mesh VPN client for Home Assistant OS (x86_64 only)",
   "arch": ["amd64"],
@@ -22,5 +22,5 @@
   ],
   "devices": ["/dev/net/tun"],
   "map": ["config:rw"],
-  "image": "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64"
+  "image": "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64:1.10.3"
 }
