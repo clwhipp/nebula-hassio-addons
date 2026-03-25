@@ -7,43 +7,35 @@ NEBULA_DIR=/data/nebula
 mkdir -p "$NEBULA_DIR"
 
 # ── Read options ──────────────────────────────────────────────────────────────
-CA_CERT=$(jq -r '.ca_cert' "$CONFIG_PATH")
-HOST_CERT=$(jq -r '.host_cert' "$CONFIG_PATH")
-HOST_KEY=$(jq -r '.host_key' "$CONFIG_PATH")
+CA_CERT_PATH=$(jq -r '.ca_cert_path' "$CONFIG_PATH")
+HOST_CERT_PATH=$(jq -r '.host_cert_path' "$CONFIG_PATH")
+HOST_KEY_PATH=$(jq -r '.host_key_path' "$CONFIG_PATH")
 CONFIG_FILE=$(jq -r '.config_path' "$CONFIG_PATH")
 DEBUG=$(jq -r '.debug' "$CONFIG_PATH")
 
-# ── Validate required fields ──────────────────────────────────────────────────
-for FIELD in ca_cert host_cert host_key config_path; do
-  VAL=$(jq -r ".$FIELD" "$CONFIG_PATH")
-  if [ -z "$VAL" ] || [ "$VAL" = "null" ]; then
-    echo "[ERROR] '$FIELD' is required but not set in the add-on options."
+# ── Validate all files exist ──────────────────────────────────────────────────
+for VAR in CA_CERT_PATH HOST_CERT_PATH HOST_KEY_PATH CONFIG_FILE; do
+  FILE="${!VAR}"
+  if [ -z "$FILE" ] || [ "$FILE" = "null" ]; then
+    echo "[ERROR] Option for $VAR is not set in the add-on options."
+    exit 1
+  fi
+  if [ ! -f "$FILE" ]; then
+    echo "[ERROR] File not found: $FILE"
     exit 1
   fi
 done
 
-if [ ! -f "$CONFIG_FILE" ]; then
-  echo "[ERROR] Nebula config file not found at: $CONFIG_FILE"
-  echo "[ERROR] Create your config.yml at that path and restart the add-on."
-  exit 1
-fi
+echo "[INFO] All certificate and config files found"
 
-# ── Write certificate and key files ──────────────────────────────────────────
-echo "$CA_CERT"   > "$NEBULA_DIR/ca.crt"
-echo "$HOST_CERT" > "$NEBULA_DIR/host.crt"
-echo "$HOST_KEY"  > "$NEBULA_DIR/host.key"
-chmod 600 "$NEBULA_DIR/host.key"
-
-echo "[INFO] Certificates written to $NEBULA_DIR"
-
-# ── Copy user config and patch pki paths to managed locations ────────────────
+# ── Copy config and patch pki paths to the actual file locations ──────────────
 cp "$CONFIG_FILE" "$NEBULA_DIR/config.yml"
 
-yq e -i '
-  .pki.ca   = "/data/nebula/ca.crt" |
-  .pki.cert = "/data/nebula/host.crt" |
-  .pki.key  = "/data/nebula/host.key"
-' "$NEBULA_DIR/config.yml"
+yq e -i "
+  .pki.ca   = \"$CA_CERT_PATH\" |
+  .pki.cert = \"$HOST_CERT_PATH\" |
+  .pki.key  = \"$HOST_KEY_PATH\"
+" "$NEBULA_DIR/config.yml"
 
 echo "[INFO] Nebula config loaded from $CONFIG_FILE"
 
