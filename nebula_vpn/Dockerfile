@@ -6,7 +6,7 @@ LABEL \
   io.hass.description="Nebula mesh VPN client for Home Assistant OS (x86_64)" \
   io.hass.arch="amd64" \
   io.hass.type="addon" \
-  io.hass.version="0.2.1"
+  io.hass.version="0.2.2"
 
 # Dependencies
 RUN apk add --no-cache ca-certificates curl yq
