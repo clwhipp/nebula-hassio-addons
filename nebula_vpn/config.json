@@ -1,6 +1,6 @@
 {
   "name": "Nebula VPN",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "slug": "nebula_vpn",
   "description": "Nebula mesh VPN client for Home Assistant OS (x86_64 only)",
   "arch": ["amd64"],
@@ -9,11 +9,17 @@
   "init": false,
   "homeassistant": "2026.3.1",
   "options": {
-    "nebula_config_path": "/config/nebula/config.yml",
+    "ca_cert": "",
+    "host_cert": "",
+    "host_key": "",
+    "nebula_config": "",
     "debug": false
   },
   "schema": {
-    "nebula_config_path": "str",
+    "ca_cert": "str",
+    "host_cert": "str",
+    "host_key": "password",
+    "nebula_config": "str",
     "debug": "bool"
   },
   "host_network": true,
@@ -22,5 +28,5 @@
   ],
   "devices": ["/dev/net/tun"],
   "map": ["config:rw"],
-  "image": "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64:0.1.0"
+  "image": "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64"
 }

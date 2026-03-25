@@ -6,20 +6,23 @@ LABEL \
   io.hass.description="Nebula mesh VPN client for Home Assistant OS (x86_64)" \
   io.hass.arch="amd64" \
   io.hass.type="addon" \
-  io.hass.version="1.10.3"
+  io.hass.version="0.2.0"
 
 # Dependencies
-RUN apk add --no-cache curl ca-certificates
+RUN apk add --no-cache ca-certificates curl yq
 
 # Download Nebula for x86_64 (linux-amd64)
 ARG NEBULA_VERSION=1.10.3
 
-RUN curl -L \
+RUN curl -fsSL \
       "https://github.com/slackhq/nebula/releases/download/v${NEBULA_VERSION}/nebula-linux-amd64.tar.gz" \
       -o /tmp/nebula.tar.gz \
     && tar -xzf /tmp/nebula.tar.gz -C /usr/local/bin nebula \
     && rm /tmp/nebula.tar.gz \
     && chmod +x /usr/local/bin/nebula
+
+# Persistent directory for certs and generated config
+RUN mkdir -p /data/nebula
 
 # Entry script
 COPY run.sh /run.sh

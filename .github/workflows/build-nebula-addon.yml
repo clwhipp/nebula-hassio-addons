@@ -29,7 +29,7 @@ jobs:
       - name: Extract add-on version
         id: version
         run: |
-          VERSION=$(jq -r '.version' nebula_vpn/config.json)
+          VERSION=$(grep '^version:' nebula_vpn/config.yaml | awk '{print $2}' | tr -d '"')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Build and push (amd64)
