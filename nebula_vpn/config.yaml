@@ -1,6 +1,6 @@
 ---
 name: Nebula VPN
-version: "0.2.0"
+version: "0.2.1"
 slug: nebula_vpn
 description: Nebula mesh VPN client for Home Assistant OS (x86_64 only)
 url: https://github.com/clwhipp/nebula-hassio-addons
@@ -23,12 +23,12 @@ options:
   ca_cert: ""
   host_cert: ""
   host_key: ""
-  nebula_config: ""
+  config_path: "/config/nebula/config.yml"
   debug: false
 schema:
   ca_cert: str
   host_cert: str
   host_key: password
-  nebula_config: str
+  config_path: str
   debug: bool
 image: "7cjqdceqvl3fbbj2/nebula-hassio-addon-amd64"
